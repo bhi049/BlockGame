@@ -26,6 +26,8 @@ export default function HomeScreen() {
   const [currentShape, setCurrentShape] = useState(SHAPES[0]);
   const [touchOffset, setTouchOffset] = useState({ x: 0, y: 0 });
 
+  const [shapeSize, setShapeSize] = useState({ width: 0, height: 0 });
+
   const gridRef = useRef<View>(null);
   const pan = useRef(new Animated.ValueXY()).current;
 
@@ -36,6 +38,9 @@ export default function HomeScreen() {
       setTouchOffset({
         x: layout.locationX,
         y: layout.locationY,
+      });
+      shapeRef.current?.measure((_x, _y, width, height) => {
+        setShapeSize({ width, height });
       });
       pan.extractOffset();
     },
@@ -48,8 +53,11 @@ export default function HomeScreen() {
 
       // ✅ Correct use of callback with 4 parameters
       gridRef.current?.measureInWindow((gridX, gridY, _w, _h) => {
-        const dropX = moveX - touchOffset.x;
-        const dropY = moveY - touchOffset.y;
+        const shapeOffsetX = shapeSize.width / 2;
+        const shapeOffsetY = shapeSize.height / 2;
+
+        const dropX = moveX - shapeOffsetX;
+        const dropY = moveY - shapeOffsetY;
 
         const cell = calculateGridCell(dropX, dropY, gridX, gridY);
         if (cell === undefined) {
@@ -91,12 +99,15 @@ export default function HomeScreen() {
     },
   });
 
+  const shapeRef = useRef<View>(null);
+
   return (
     <View style={styles.container}>
       <ScoreBoard score={score} />
       <GameGrid ref={gridRef} grid={grid} onCellTap={() => {}} />
       <Text style={styles.previewLabel}>Next Shape:</Text>
       <Animated.View
+        ref={shapeRef}
         {...panResponder.panHandlers}
         style={[styles.draggable, { transform: pan.getTranslateTransform() }]}
       >
