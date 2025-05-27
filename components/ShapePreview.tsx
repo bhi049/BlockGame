@@ -18,6 +18,9 @@ export default function ShapePreview({ shape }: { shape: number[][] }) {
   );
 }
 
+const CELL_SIZE = 20;
+const CELL_MARGIN = 1;
+
 const styles = StyleSheet.create({
   preview: {
     marginTop: 10,
@@ -27,9 +30,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   cell: {
-    width: 20,
-    height: 20,
-    margin: 1,
+    width: CELL_SIZE,
+    height: CELL_SIZE,
+    margin: CELL_MARGIN,
     borderRadius: 3,
   },
   empty: {

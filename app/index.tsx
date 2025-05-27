@@ -4,8 +4,7 @@ import {
   Animated,
   PanResponder,
   StyleSheet,
-  Text,
-  View,
+  View
 } from "react-native";
 import DraggableShape from "../components/DraggableShape";
 import GameGrid from "../components/GameGrid";
@@ -105,7 +104,6 @@ export default function HomeScreen() {
     <View style={styles.container}>
       <ScoreBoard score={score} />
       <GameGrid ref={gridRef} grid={grid} onCellTap={() => {}} />
-      <Text style={styles.previewLabel}>Next Shape:</Text>
       <Animated.View
         ref={shapeRef}
         {...panResponder.panHandlers}
@@ -123,7 +121,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#0A0F2B",
     alignItems: "center",
     justifyContent: "center",
-    paddingTop: 40,
+    paddingBottom: 200,
   },
   previewLabel: {
     marginTop: 20,

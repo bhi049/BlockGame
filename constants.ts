@@ -1,6 +1,6 @@
 // Define CELL_MARGIN and CELL_SIZE here to avoid circular import
-export const CELL_MARGIN = 2; // Set your actual margin value
-export const CELL_SIZE = 20;  // Set your actual cell size value
+export const CELL_MARGIN = 3; // Increased margin for better spacing
+export const CELL_SIZE = 30;  // Increased cell size for larger grid and shapes
 
 import { GRID_SIZE } from "./logic/gameEngine";
 
